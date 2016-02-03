@@ -741,7 +741,7 @@
     });
 }
 
-- (void)dealloc {
+- (void)quit {
     FtpQuit(conn);
     conn = nil;
 }

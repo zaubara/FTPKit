@@ -469,6 +469,11 @@
 - (BOOL)changeDirectoryToPath:(NSString *)remotePath;
 
 /**
+ Close connection. Should be called once for each exchange session!
+ */
+- (void)quit;
+
+/**
  Returns the current working directory.
  
  @note Currently this will always return the root path. This is because the
