@@ -3,7 +3,9 @@
 #import "FTPClient.h"
 #import "NSError+Additions.h"
 
-@interface FTPClient ()
+@interface FTPClient () {
+    netbuf *conn;
+}
 
 @property (nonatomic, strong) FTPCredentials* credentials;
 
@@ -18,7 +20,7 @@
  
  @return netbuf The connection to the FTP server on success. NULL otherwise.
  */
-- (netbuf *)connect;
+- (netbuf *)newConnection;
 
 /**
  Send arbitrary command to the FTP server.
@@ -111,13 +113,14 @@
 
 - (long long int)fileSizeAtPath:(NSString *)path
 {
-    netbuf *conn = [self connect];
+    if (conn == NULL) {
+        conn = [self newConnection];
+    }
     if (conn == NULL)
         return -1;
     const char *cPath = [[self urlEncode:path] cStringUsingEncoding:NSUTF8StringEncoding];
     unsigned int bytes;
     int stat = FtpSize(cPath, &bytes, FTPLIB_BINARY, conn);
-    FtpQuit(conn);
     if (stat == 0) {
         FKLogError(@"File most likely does not exist %@", path);
         return -1;
@@ -140,7 +143,9 @@
 
 - (NSArray *)listContentsAtHandle:(FTPHandle *)handle showHiddenFiles:(BOOL)showHiddenFiles
 {
-    netbuf *conn = [self connect];
+    if (conn == NULL) {
+        conn = [self newConnection];
+    }
     if (conn == NULL)
         return nil;
     const char *path = [[self urlEncode:handle.path] cStringUsingEncoding:NSUTF8StringEncoding];
@@ -148,7 +153,6 @@
     const char *output = [tmpPath cStringUsingEncoding:NSUTF8StringEncoding];
     int stat = FtpDir(output, path, conn);
     NSString *response = [NSString stringWithCString:FtpLastResponse(conn) encoding:NSUTF8StringEncoding];
-    FtpQuit(conn);
     if (stat == 0) {
         self.lastError = [NSError FTPKitErrorWithResponse:response];
         return nil;
@@ -200,7 +204,9 @@
 
 - (BOOL)downloadHandle:(FTPHandle *)handle to:(NSString *)localPath progress:(BOOL (^)(NSUInteger, NSUInteger))progress
 {
-    netbuf *conn = [self connect];
+    if (conn == NULL) {
+        conn = [self newConnection];
+    }
     if (conn == NULL)
         return NO;
     const char *output = [localPath cStringUsingEncoding:NSUTF8StringEncoding];
@@ -209,7 +215,6 @@
     int stat = FtpGet(output, path, FTPLIB_BINARY, conn);
     NSString *response = [NSString stringWithCString:FtpLastResponse(conn) encoding:NSUTF8StringEncoding];
     // @todo Use 'progress' block.
-    FtpQuit(conn);
     if (stat == 0) {
         self.lastError = [NSError FTPKitErrorWithResponse:response];
         return NO;
@@ -233,7 +238,9 @@
 
 - (BOOL)uploadFile:(NSString *)localPath to:(NSString *)remotePath progress:(BOOL (^)(NSUInteger, NSUInteger))progress
 {
-    netbuf *conn = [self connect];
+    if (conn == NULL) {
+        conn = [self newConnection];
+    }
     if (conn == NULL)
         return NO;
     const char *input = [localPath cStringUsingEncoding:NSUTF8StringEncoding];
@@ -242,7 +249,6 @@
     int stat = FtpPut(input, path, FTPLIB_BINARY, conn);
     // @todo Use 'progress' block.
     NSString *response = [NSString stringWithCString:FtpLastResponse(conn) encoding:NSUTF8StringEncoding];
-    FtpQuit(conn);
     if (stat == 0) {
         // Invalid path, wrong permissions, etc. Make sure that permissions are
         // set corectly on the path AND the path of the initialPath is correct.
@@ -278,13 +284,14 @@
 
 - (BOOL)createDirectoryAtHandle:(FTPHandle *)handle
 {
-    netbuf *conn = [self connect];
+    if (conn == NULL) {
+        conn = [self newConnection];
+    }
     if (conn == NULL)
         return NO;
     const char *path = [handle.path cStringUsingEncoding:NSUTF8StringEncoding];
     int stat = FtpMkdir(path, conn);
     NSString *response = [NSString stringWithCString:FtpLastResponse(conn) encoding:NSUTF8StringEncoding];
-    FtpQuit(conn);
     if (stat == 0) {
         self.lastError = [NSError FTPKitErrorWithResponse:response];
         return NO;
@@ -328,7 +335,9 @@
 
 - (BOOL)deleteHandle:(FTPHandle *)handle
 {
-    netbuf *conn = [self connect];
+    if (conn == NULL) {
+        conn = [self newConnection];
+    }
     if (conn == NULL)
         return NO;
     const char *path = [[self urlEncode:handle.path] cStringUsingEncoding:NSUTF8StringEncoding];
@@ -338,7 +347,6 @@
     else
         stat = FtpDelete(path, conn);
     NSString *response = [NSString stringWithCString:FtpLastResponse(conn) encoding:NSUTF8StringEncoding];
-    FtpQuit(conn);
     if (stat == 0) {
         self.lastError = [NSError FTPKitErrorWithResponse:response];
         return NO;
@@ -379,12 +387,13 @@
         return NO;
     }
     NSString *command = [NSString stringWithFormat:@"SITE CHMOD %i %@", mode, [self urlEncode:handle.path]];
-    netbuf *conn = [self connect];
+    if (conn == NULL) {
+        conn = [self newConnection];
+    }
     if (conn == NULL)
         return NO;
     BOOL success = [self sendCommand:command conn:conn];
     NSString *response = [NSString stringWithCString:FtpLastResponse(conn) encoding:NSUTF8StringEncoding];
-    FtpQuit(conn);
     if (! success) {
         self.lastError = [NSError FTPKitErrorWithResponse:response];
         return NO;
@@ -408,7 +417,9 @@
 
 - (BOOL)renamePath:(NSString *)sourcePath to:(NSString *)destPath
 {
-    netbuf *conn = [self connect];
+    if (conn == NULL) {
+        conn = [self newConnection];
+    }
     if (conn == NULL)
         return NO;
     const char *src = [[self urlEncode:sourcePath] cStringUsingEncoding:NSUTF8StringEncoding];
@@ -417,7 +428,6 @@
     const char *dst = [destPath cStringUsingEncoding:NSUTF8StringEncoding];
     int stat = FtpRename(src, dst, conn);
     NSString *response = [NSString stringWithCString:FtpLastResponse(conn) encoding:NSUTF8StringEncoding];
-    FtpQuit(conn);
     if (stat == 0) {
         self.lastError = [NSError FTPKitErrorWithResponse:response];
         return NO;
@@ -474,36 +484,36 @@
 
 /** Private Methods */
 
-- (netbuf *)connect
+- (netbuf *)newConnection
 {
     self.lastError = nil;
     NSString *hostString = [NSString stringWithFormat:@"%@:%d",_credentials.host, _credentials.port];
     const char *host = [hostString cStringUsingEncoding:NSUTF8StringEncoding];
     const char *user = [_credentials.username cStringUsingEncoding:NSUTF8StringEncoding];
     const char *pass = [_credentials.password cStringUsingEncoding:NSUTF8StringEncoding];
-    netbuf *conn;
-    int stat = FtpConnect(host, &conn);
+    netbuf *connection;
+    int stat = FtpConnect(host, &connection);
     if (stat == 0) {
         // @fixme We don't get the exact error code from the lib. Use a generic
         // connection error.
         self.lastError = [NSError FTPKitErrorWithCode:10060];
         return NULL;
     }
-    stat = FtpLogin(user, pass, conn);
+    stat = FtpLogin(user, pass, connection);
     if (stat == 0) {
-        NSString *response = [NSString stringWithCString:FtpLastResponse(conn) encoding:NSUTF8StringEncoding];
+        NSString *response = [NSString stringWithCString:FtpLastResponse(connection) encoding:NSUTF8StringEncoding];
         self.lastError = [NSError FTPKitErrorWithResponse:response];
-        FtpQuit(conn);
+        FtpQuit(connection);
         return NULL;
     }
-    return conn;
+    return connection;
 }
 
-- (BOOL)sendCommand:(NSString *)command conn:(netbuf *)conn
+- (BOOL)sendCommand:(NSString *)command conn:(netbuf *)connection
 {
     const char *cmd = [command cStringUsingEncoding:NSUTF8StringEncoding];
-    if (!FtpSendCmd(cmd, '2', conn)) {
-        NSString *response = [NSString stringWithCString:FtpLastResponse(conn) encoding:NSUTF8StringEncoding];
+    if (!FtpSendCmd(cmd, '2', connection)) {
+        NSString *response = [NSString stringWithCString:FtpLastResponse(connection) encoding:NSUTF8StringEncoding];
         self.lastError = [NSError FTPKitErrorWithResponse:response];
         return NO;
     }
@@ -592,7 +602,9 @@
 
 - (NSDate *)lastModifiedAtPath:(NSString *)remotePath
 {
-    netbuf *conn = [self connect];
+    if (conn == NULL) {
+        conn = [self newConnection];
+    }
     if (conn == NULL)
         return nil;
     const char *cPath = [[self urlEncode:remotePath] cStringUsingEncoding:NSUTF8StringEncoding];
@@ -602,7 +614,6 @@
     // of files that can be downloaded using the RETR command.
     int stat = FtpModDate(cPath, dt, kFTPKitRequestBufferSize, conn);
     NSString *response = [NSString stringWithCString:FtpLastResponse(conn) encoding:NSUTF8StringEncoding];
-    FtpQuit(conn);
     if (stat == 0) {
         self.lastError = [NSError FTPKitErrorWithResponse:response];
         return nil;
@@ -664,12 +675,13 @@
      Currently the lib creates a new connection for every command issued.
      Therefore, it is unnecessary to change back to the original cwd.
      */
-    netbuf *conn = [self connect];
+    if (conn == NULL) {
+        conn = [self newConnection];
+    }
     if (conn == NULL)
         return NO;
     const char *cPath = [remotePath cStringUsingEncoding:NSUTF8StringEncoding];
     int stat = FtpChdir(cPath, conn);
-    FtpQuit(conn);
     if (stat == 0)
         return NO;
     return YES;
@@ -691,13 +703,14 @@
 
 - (BOOL)changeDirectoryToPath:(NSString *)remotePath
 {
-    netbuf *conn = [self connect];
+    if (conn == NULL) {
+        conn = [self newConnection];
+    }
     if (conn == NULL)
         return NO;
     const char *cPath = [remotePath cStringUsingEncoding:NSUTF8StringEncoding];
     int stat = FtpChdir(cPath, conn);
     NSString *response = [NSString stringWithCString:FtpLastResponse(conn) encoding:NSUTF8StringEncoding];
-    FtpQuit(conn);
     if (stat == 0) {
         self.lastError = [NSError FTPKitErrorWithResponse:response];
         return NO;
@@ -707,13 +720,14 @@
 
 - (NSString *)printWorkingDirectory
 {
-    netbuf *conn = [self connect];
+    if (conn == NULL) {
+        conn = [self newConnection];
+    }
     if (conn == NULL)
         return nil;
     char cPath[kFTPKitTempBufferSize];
     int stat = FtpPwd(cPath, kFTPKitTempBufferSize, conn);
     NSString *response = [NSString stringWithCString:FtpLastResponse(conn) encoding:NSUTF8StringEncoding];
-    FtpQuit(conn);
     if (stat == 0) {
         self.lastError = [NSError FTPKitErrorWithResponse:response];
         return nil;
@@ -727,6 +741,11 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         failure(error);
     });
+}
+
+- (void)quit {
+    FtpQuit(conn);
+    conn = nil;
 }
 
 @end

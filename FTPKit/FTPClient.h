@@ -4,10 +4,6 @@
  Consider implementing more of the commands specified at:
  http://en.wikipedia.org/wiki/List_of_FTP_commands
  
- Currently this creates a new connection to the FTP server for every command
- issued. This means the state of the current working directory is NOT kept and.
- therefore, some commands are not of use.
- 
  */
 
 #import "FTPHandle.h"
@@ -471,6 +467,11 @@
  @return YES if the directory was successfully changed.
  */
 - (BOOL)changeDirectoryToPath:(NSString *)remotePath;
+
+/**
+ Close connection. Should be called once for each exchange session!
+ */
+- (void)quit;
 
 /**
  Returns the current working directory.
