@@ -744,8 +744,10 @@
 }
 
 - (void)quit {
-    FtpQuit(conn);
-    conn = nil;
+    if (conn != nil) {
+        FtpQuit(conn);
+        conn = nil;
+    }
 }
 
 @end
