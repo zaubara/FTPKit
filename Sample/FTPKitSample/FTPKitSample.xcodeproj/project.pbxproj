@@ -22,9 +22,9 @@
 		076BD44A18CE382B00517DEE /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076BD44918CE382B00517DEE /* MainViewController.m */; };
 		076BD44D18CE396000517DEE /* GeneralTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 076BD44C18CE396000517DEE /* GeneralTest.m */; };
 		076BD45118CE39C000517DEE /* TestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 076BD45018CE39C000517DEE /* TestCase.m */; };
-		076BD45D18CE3B6300517DEE /* libFTPKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 076BD45818CE3B5200517DEE /* libFTPKit.a */; };
 		07942E2A18D01B32006BA28E /* HandleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07942E2918D01B32006BA28E /* HandleTest.m */; };
 		07942E2E18D01C9A006BA28E /* PerformanceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07942E2D18D01C9A006BA28E /* PerformanceTest.m */; };
+		215CED0D1C6B5CAB000B0104 /* FTPKitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 215CED0C1C6B5CAB000B0104 /* FTPKitFramework.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,27 +34,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 076BD41518CE376D00517DEE;
 			remoteInfo = FTPKitSample;
-		};
-		076BD45718CE3B5200517DEE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 076BD45218CE3B5200517DEE /* FTPKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F27BA1CE1802FE7E00584A9E;
-			remoteInfo = FTPKit;
-		};
-		076BD45918CE3B5200517DEE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 076BD45218CE3B5200517DEE /* FTPKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 07F23C4818CA4C43002BDF93;
-			remoteInfo = "FTPKit Tests";
-		};
-		076BD45B18CE3B5E00517DEE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 076BD45218CE3B5200517DEE /* FTPKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = F27BA1CD1802FE7E00584A9E;
-			remoteInfo = FTPKit;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -81,11 +60,11 @@
 		076BD44C18CE396000517DEE /* GeneralTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GeneralTest.m; path = Tests/GeneralTest.m; sourceTree = "<group>"; };
 		076BD44F18CE39C000517DEE /* TestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestCase.h; path = Tests/TestCase.h; sourceTree = "<group>"; };
 		076BD45018CE39C000517DEE /* TestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestCase.m; path = Tests/TestCase.m; sourceTree = "<group>"; };
-		076BD45218CE3B5200517DEE /* FTPKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FTPKit.xcodeproj; path = ../../FTPKit.xcodeproj; sourceTree = "<group>"; };
 		07942E2818D01B32006BA28E /* HandleTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HandleTest.h; path = Tests/HandleTest.h; sourceTree = "<group>"; };
 		07942E2918D01B32006BA28E /* HandleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HandleTest.m; path = Tests/HandleTest.m; sourceTree = "<group>"; };
 		07942E2C18D01C9A006BA28E /* PerformanceTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerformanceTest.h; path = Tests/PerformanceTest.h; sourceTree = "<group>"; };
 		07942E2D18D01C9A006BA28E /* PerformanceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PerformanceTest.m; path = Tests/PerformanceTest.m; sourceTree = "<group>"; };
+		215CED0C1C6B5CAB000B0104 /* FTPKitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FTPKitFramework.framework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,8 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				076BD45D18CE3B6300517DEE /* libFTPKit.a in Frameworks */,
 				076BD41C18CE376D00517DEE /* CoreGraphics.framework in Frameworks */,
+				215CED0D1C6B5CAB000B0104 /* FTPKitFramework.framework in Frameworks */,
 				076BD41E18CE376D00517DEE /* UIKit.framework in Frameworks */,
 				076BD41A18CE376D00517DEE /* Foundation.framework in Frameworks */,
 			);
@@ -116,7 +95,6 @@
 		076BD40D18CE376D00517DEE = {
 			isa = PBXGroup;
 			children = (
-				076BD45218CE3B5200517DEE /* FTPKit.xcodeproj */,
 				076BD41F18CE376D00517DEE /* FTPKitSample */,
 				076BD43818CE376D00517DEE /* FTPKitSampleTests */,
 				076BD41818CE376D00517DEE /* Frameworks */,
@@ -147,6 +125,7 @@
 		076BD41F18CE376D00517DEE /* FTPKitSample */ = {
 			isa = PBXGroup;
 			children = (
+				215CED0C1C6B5CAB000B0104 /* FTPKitFramework.framework */,
 				076BD42818CE376D00517DEE /* AppDelegate.h */,
 				076BD42918CE376D00517DEE /* AppDelegate.m */,
 				076BD44818CE382B00517DEE /* MainViewController.h */,
@@ -202,15 +181,6 @@
 			name = Tests;
 			sourceTree = "<group>";
 		};
-		076BD45318CE3B5200517DEE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				076BD45818CE3B5200517DEE /* libFTPKit.a */,
-				076BD45A18CE3B5200517DEE /* FTPKit Tests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -221,11 +191,11 @@
 				076BD41218CE376D00517DEE /* Sources */,
 				076BD41318CE376D00517DEE /* Frameworks */,
 				076BD41418CE376D00517DEE /* Resources */,
+				215CED0B1C6B5C88000B0104 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				076BD45C18CE3B5E00517DEE /* PBXTargetDependency */,
 			);
 			name = FTPKitSample;
 			productName = FTPKitSample;
@@ -274,12 +244,6 @@
 			mainGroup = 076BD40D18CE376D00517DEE;
 			productRefGroup = 076BD41718CE376D00517DEE /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 076BD45318CE3B5200517DEE /* Products */;
-					ProjectRef = 076BD45218CE3B5200517DEE /* FTPKit.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				076BD41518CE376D00517DEE /* FTPKitSample */,
@@ -287,23 +251,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		076BD45818CE3B5200517DEE /* libFTPKit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libFTPKit.a;
-			remoteRef = 076BD45718CE3B5200517DEE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		076BD45A18CE3B5200517DEE /* FTPKit Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "FTPKit Tests.xctest";
-			remoteRef = 076BD45918CE3B5200517DEE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		076BD41418CE376D00517DEE /* Resources */ = {
@@ -324,6 +271,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		215CED0B1C6B5C88000B0104 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/FTPKitFramework.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		076BD41218CE376D00517DEE /* Sources */ = {
@@ -355,11 +319,6 @@
 			isa = PBXTargetDependency;
 			target = 076BD41518CE376D00517DEE /* FTPKitSample */;
 			targetProxy = 076BD43618CE376D00517DEE /* PBXContainerItemProxy */;
-		};
-		076BD45C18CE3B5E00517DEE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FTPKit;
-			targetProxy = 076BD45B18CE3B5E00517DEE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -460,9 +419,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FTPKitSample/FTPKitSample-Prefix.pch";
 				INFOPLIST_FILE = "FTPKitSample/FTPKitSample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -477,9 +442,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FTPKitSample/FTPKitSample-Prefix.pch";
 				INFOPLIST_FILE = "FTPKitSample/FTPKitSample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
