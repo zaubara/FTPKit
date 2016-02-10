@@ -30,6 +30,10 @@
 		215CECF81C6B4915000B0104 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 072A829A18CC2450001E640B /* NSString+Additions.m */; };
 		215CECF91C6B4915000B0104 /* ftplib.c in Sources */ = {isa = PBXBuildFile; fileRef = 076BD46118CFB76E00517DEE /* ftplib.c */; };
 		215CECFA1C6B4923000B0104 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F27BA1D11802FE7E00584A9E /* Foundation.framework */; };
+		215CED8B1C6B62AE000B0104 /* FTPKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F27BA1D61802FE7E00584A9E /* FTPKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		215CED8C1C6B62AE000B0104 /* FTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F27BA1F71802FF1800584A9E /* FTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		215CED8D1C6B62AE000B0104 /* FTPCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = F27BA2051802FF1800584A9E /* FTPCredentials.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		215CED8E1C6B62AE000B0104 /* FTPHandle.h in Headers */ = {isa = PBXBuildFile; fileRef = F27BA1FB1802FF1800584A9E /* FTPHandle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F27BA20B1802FF1800584A9E /* FTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F27BA1F81802FF1800584A9E /* FTPClient.m */; };
 		F27BA20D1802FF1800584A9E /* FTPHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = F27BA1FC1802FF1800584A9E /* FTPHandle.m */; };
 		F27BA2121802FF1800584A9E /* FTPCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = F27BA2061802FF1800584A9E /* FTPCredentials.m */; };
@@ -251,7 +255,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				215CED8B1C6B62AE000B0104 /* FTPKit.h in Headers */,
+				215CED8C1C6B62AE000B0104 /* FTPClient.h in Headers */,
+				215CED8D1C6B62AE000B0104 /* FTPCredentials.h in Headers */,
 				215CECEF1C6B4879000B0104 /* FTPKitFramework.h in Headers */,
+				215CED8E1C6B62AE000B0104 /* FTPHandle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,6 +684,7 @@
 				215CECF21C6B4879000B0104 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F27BA1C91802FE7E00584A9E /* Build configuration list for PBXProject "FTPKit" */ = {
 			isa = XCConfigurationList;
