@@ -1,0 +1,6 @@
+framework module FTPKitFramework {
+  umbrella header "FTPKitFramework.h"
+
+  export *
+  module * { export * }
+}
