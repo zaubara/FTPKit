@@ -120,7 +120,9 @@ NSString *const FTPErrorDomain = @"FTPKit";
     // Ex: '500 Server error'
     NSMutableArray *components = [[response componentsSeparatedByString:@" "] mutableCopy];
     NSInteger code = 500;
-    if ([components[0] isIntegerValue]) {
+    // Check if components[0] really responds to isIntegerValue since we got some crashes here (unrecognized selector sent to instance)
+    if ([components[0] respondsToSelector:@selector(isIntegerValue)] &&
+        [components[0] isIntegerValue]) {
         code = [components[0] integerValue];
         [components removeObjectAtIndex:0];
     }
